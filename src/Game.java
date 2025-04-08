@@ -30,16 +30,13 @@ public class Game{
 
 class Deck{
     static void cards() {
-        String[] suits = {"Hearts", "Diamonds", "Clubs", "Spades"};
-        String[] ranks = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"};
-        String[] deck = new String[52];
+        String[] colour = {"Red", "Green", "Blue", "Yellow", "Wildcard", "WildFour", "Skip", "Reverse", "Draw Two"};
+        String[] number = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"};
+        String[] deck = new String[108];
         int index = 0;
-        for (String suit : suits) {
-            for (String rank : ranks) {
-                deck[index++] = rank + " of " + suit;
-            }
-        }        
-    
+
+        
+
     
     
     
