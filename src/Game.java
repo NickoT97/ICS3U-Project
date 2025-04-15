@@ -29,13 +29,14 @@ public class Game{
 }
 
 class Deck{
-    static void cards() {
-        String[] colour = {"Red", "Green", "Blue", "Yellow", "Wildcard", "WildFour", "Skip", "Reverse", "Draw Two"};
-        String[] number = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"};
-        String[] deck = new String[108];
+    public static void cards() {
+        String[] red = new String[25];
+        String[] blue = new String[25];
+        String[] green = new String[25];
+        String[] wild = new String[8];
+
         int index = 0;
 
-        
 
     
     
