@@ -78,8 +78,16 @@ class Deck{
 
         card[3] = new int[8]; // Wild
         
-        for (int i = 0; i < 25; i++){
+        for (int i = 0; i < 8; i++){
             card[3][i] = 4; // Give each card a value of 4, which means it is in the deck
+        }
+
+        String[][] cardNames = new String[4][];
+
+        cardNames[0] = new String[25]; // Red
+
+        for (int i = 0; i < 25; i++){
+            cardNames[0][i] = "Red " + i; // Give each card a name of Red 0-12 (every card has a duplicate, except for 0)
         }
 
         int index1 = 0;
