@@ -91,12 +91,101 @@ class Clearing{
 
 
 
+
+
+
+
+
+
+
+
+
+
 class Deck{
+
+    
     public static void cards() {
 
 
         //declaring the clearing method
         Clearing clearer = new Clearing();
+
+                // Player 1 hand show method.
+                class PlayerOneHand{
+                    public void P1hand(int[][] card){
+                        
+                        for (int colorIndex = 0; colorIndex < card.length; colorIndex++){
+                            for (int cardIndex = 0; cardIndex < card[colorIndex].length; cardIndex++){
+                                if (card[colorIndex][cardIndex] == 1){
+                                    String color;
+                                    switch (colorIndex){
+                                        case 0:  color = "red";   break;
+                                        case 1:  color = "blue";  break;
+                                        case 2:  color = "green"; break;
+                                        default: color = "wild";  break;
+                                    }
+                                    System.out.println(color + " " + cardIndex);
+                                }
+                            }
+                        }
+                        System.out.println();
+        
+        
+        
+        
+                    }
+                }
+        
+                //declaring player 1s hand display method
+                PlayerOneHand hand1 = new PlayerOneHand();
+                
+        
+        
+        
+        
+        
+                // Player 2 hand show method.
+                class PlayerTwoHand{
+                    public void P2hand(int[][] card){
+                        
+                        for (int colorIndex = 0; colorIndex < card.length; colorIndex++){
+                            for (int cardIndex = 0; cardIndex < card[colorIndex].length; cardIndex++){
+                                if (card[colorIndex][cardIndex] == 2){
+                                    String color;
+                                    switch (colorIndex){
+                                        case 0:  color = "red";   break;
+                                        case 1:  color = "blue";  break;
+                                        case 2:  color = "green"; break;
+                                        default: color = "wild";  break;
+                                    }
+                                    System.out.println(color + " " + cardIndex);
+                                }
+                            }
+                        }
+                        System.out.println();
+        
+        
+        
+        
+                    }
+                }
+        
+                //declaring player 2s hand display method
+                PlayerTwoHand hand2 = new PlayerTwoHand();
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
 
     //memory numbers declared. These are variables so we can change the numbers if we need to. (If we want to add more players, or we need another variable for whatever reason)
     int p1 = 1; // player 1's hand
@@ -185,7 +274,7 @@ class Deck{
 
         //clear console to rotate to player 2
         clearer.clearing();
-
+    
         // card dealing for player 2
 
         for(i = 0; i < 7; i++){
@@ -231,8 +320,26 @@ class Deck{
         clearer.clearing();
 
 
+        //rounds
+
+
+        hand1.P1hand(card);
+
+        clearer.clearing();
+
+        hand2.P2hand(card);
+
+        clearer.clearing();
+        
+        
+
         }
 
 
 
-    }
+
+
+
+ 
+    
+}
