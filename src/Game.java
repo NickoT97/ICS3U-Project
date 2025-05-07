@@ -54,6 +54,12 @@ public class Game{
     }
 }
 
+
+
+
+
+
+
 class Deck{
     public static void cards() {
         int[][] card = new int[4][];
@@ -61,7 +67,7 @@ class Deck{
         card[0] = new int[25]; // Red
         
         for (int i = 0; i < 25; i++){
-            card[0][0] = 4; // Give each card a value of 4, which means it is in the deck
+            card[0][i] = 4; // Give each card a value of 4, which means it is in the deck
             }
 
         card[1] = new int[25]; // Blue
@@ -90,20 +96,60 @@ class Deck{
             cardNames[0][i] = "Red " + i; // Give each card a name of Red 0-12 (every card has a duplicate, except for 0)
         }
 
+        
+
         int index1 = 0;
         int index2 = 0;
-
-        for (int i = 0; i < 7; i++){
-            index1 = (int) (Math.random() * 4); // The first index is the color of the card (red, blue, green, or wild)
-            index2 = (int) (Math.random() * 25); // The second index is the number of the card (0-25)
+        
+        String colour = null;
+        
+        //card dealing
+        int i = 0;
+        for(i = 0; i < 7; i++){
             
-            if (index1 == 3) // If the card is wild (index1 == 3), the randomizer will draw from a pile of 8 cards
-                index2 = (int) (Math.random() * 8); // Thw ild card has a pile of 8 cards
+            index1 = (int)(Math.random() * 4); // The first index is the color of the card (red, blue, green, or wild)
+            System.out.println(index1);
+
+            if (index1 == 3){ // If the card is wild (index1 == 3), the randomizer will draw from a pile of 8 cards
+                index2 = (int)(Math.random() * 8); // The wild card has a pile of 8 cards
+            }
+            else{
+                index2 = (int)(Math.random() * 25); // The second index is the number of the card (0-25)
             }
 
-            System.out.println(card[index1][index2]);
+            if(card[index1][index2] == 4){
 
-            card[index1][index2] = 1; // Give the card a value of one, which means it is in the player's hand
+                if(index1 == 0){
+                    colour = "red";
+                }
+
+                if(index1 == 1){
+                   colour = "blue";
+                }
+
+                if(index1 == 2){
+                    colour = "green";
+                }
+
+                if(index1 == 3){
+                    colour = "wild";
+                }
+                
+               
+                card[index1][index2] = 1; // Give the card a value of one, which means it is in the player's hand
+                System.out.println(colour + ' ' + index2);
+            }
+            else{
+                i--;
+            }
         }
+
+
+           
+
+
+        }
+
+
 
     }
