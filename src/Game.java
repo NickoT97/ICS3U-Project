@@ -3,16 +3,8 @@ import java.util.Scanner;
 import javax.swing.*;
 
 public class Game{
-    
-    public int p1 = 1; // player 1's hand
-    public int p2 = 2; // player 2's hand
-    public int top = 3; // top of pile (last card(s) played)
-    public int use = 4; // used pile (last 10 cards played)
-    public int sp = 5; // spare pile
     public static void main(String [] args){
         Scanner scan = new Scanner(System.in);
-
-        
 
         JFrame frame = new JFrame("Uno");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -100,54 +92,6 @@ class Clearing{
 
 
 
-// Player 1 hand show method.
-class PlayerOneHand{
-    public void P1hand(int[][] card){
-        
-        for (int colorIndex = 0; colorIndex < card.length; colorIndex++){
-            for (int cardIndex = 0; cardIndex < card[colorIndex].length; cardIndex++){
-                if (card[colorIndex][cardIndex] == 1){
-                    String color;
-                    switch (colorIndex){
-                        case 0:  color = "red";   break;
-                        case 1:  color = "blue";  break;
-                        case 2:  color = "green"; break;
-                        default: color = "wild";  break;
-                    }
-                    System.out.println(color + " " + cardIndex);
-                }
-            }
-        }
-        
-        System.out.println();
-        System.out.println("What card would you like to play?");
-        System.out.println();
-
-        Int x = scan.nextInt();
-        Int y = scan.nextInt();
-
-        if((((x == TopC) && y > TopN)) || (y > TopN)){
-
-            //makes current card a used rather than top
-            card[TopC][TopN] = 4;
-
-            //declares current position as new top
-            card[x][y] = top;
-
-            // makes top current position for later use
-            TopC = x;
-            TopN = y;
-        }
-
-
-        
-        
-                    }
-}
-
-
-
-
 
 
 
@@ -158,29 +102,97 @@ class PlayerOneHand{
 
 
 class Deck{
-    Int x = null;
-    Int y = null;
-    Int TopC = null;
-    Int TopN = null;
 
-
-            
+    
     public static void cards() {
 
 
         //declaring the clearing method
         Clearing clearer = new Clearing();
 
-
- 
+                // Player 1 hand show method.
+                class PlayerOneHand{
+                    public void P1hand(int[][] card){
+                        
+                        for (int colorIndex = 0; colorIndex < card.length; colorIndex++){
+                            for (int cardIndex = 0; cardIndex < card[colorIndex].length; cardIndex++){
+                                if (card[colorIndex][cardIndex] == 1){
+                                    String color;
+                                    switch (colorIndex){
+                                        case 0:  color = "red";   break;
+                                        case 1:  color = "blue";  break;
+                                        case 2:  color = "green"; break;
+                                        default: color = "wild";  break;
+                                    }
+                                    System.out.println(color + " " + cardIndex);
+                                }
+                            }
+                        }
+                        System.out.println();
+        
+        
+        
+        
+                    }
+                }
         
                 //declaring player 1s hand display method
                 PlayerOneHand hand1 = new PlayerOneHand();
                 
-  
+        
+        
+        
+        
+        
+                // Player 2 hand show method.
+                class PlayerTwoHand{
+                    public void P2hand(int[][] card){
+                        
+                        for (int colorIndex = 0; colorIndex < card.length; colorIndex++){
+                            for (int cardIndex = 0; cardIndex < card[colorIndex].length; cardIndex++){
+                                if (card[colorIndex][cardIndex] == 2){
+                                    String color;
+                                    switch (colorIndex){
+                                        case 0:  color = "red";   break;
+                                        case 1:  color = "blue";  break;
+                                        case 2:  color = "green"; break;
+                                        default: color = "wild";  break;
+                                    }
+                                    System.out.println(color + " " + cardIndex);
+                                }
+                            }
+                        }
+                        System.out.println();
+        
+        
+        
+        
+                    }
+                }
+        
+                //declaring player 2s hand display method
+                PlayerTwoHand hand2 = new PlayerTwoHand();
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
 
     //memory numbers declared. These are variables so we can change the numbers if we need to. (If we want to add more players, or we need another variable for whatever reason)
-
+    int p1 = 1; // player 1's hand
+    int p2 = 2; // player 2's hand
+    int top = 3; // top of pile (last card(s) played)
+    int use = 4; // used pile (last 10 cards played)
+    int sp = 5; // spare pile
 
 
 
@@ -224,6 +236,7 @@ class Deck{
         for(i = 0; i < 7; i++){
             
             index1 = (int)(Math.random() * 4); // The first index is the color of the card (red, blue, green, or wild)
+            System.out.println(index1);
 
             if (index1 == 3){ // If the card is wild (index1 == 3), the randomizer will draw from a pile of 8 cards
                 index2 = (int)(Math.random() * 8); // The wild card has a pile of 8 cards
@@ -267,6 +280,7 @@ class Deck{
         for(i = 0; i < 7; i++){
             
             index1 = (int)(Math.random() * 4); // The first index is the color of the card (red, blue, green, or wild)
+            System.out.println(index1);
 
             if (index1 == 3){ // If the card is wild (index1 == 3), the randomizer will draw from a pile of 8 cards
                 index2 = (int)(Math.random() * 8); // The wild card has a pile of 8 cards
@@ -312,6 +326,10 @@ class Deck{
         hand1.P1hand(card);
 
         clearer.clearing();
+
+        hand2.P2hand(card);
+
+        clearer.clearing();
         
         
 
@@ -324,4 +342,4 @@ class Deck{
 
  
     
-    }
+}
