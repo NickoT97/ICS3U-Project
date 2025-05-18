@@ -17,11 +17,12 @@ public class TopCard {
                 index2 = (int)(Math.random() * 25); // The second index is the number of the card (0-25)
             }
 
-            if(Deck.card[index1][index2] == sp){
+            // If the card that has been randomly drawn is a value in the spare pile, it will turn into the top card
+            // This will take place after the players get their cards
+            if(Deck.card[index1][index2] == 5){ 
 
                 topcard = Deck.card[index1][index2]; // The top card of the pile
-                
-
+            
             }
 
         }
