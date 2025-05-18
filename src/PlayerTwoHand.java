@@ -13,7 +13,9 @@ class PlayerTwoHand{
                         case 2:  color = "green"; break;
                         default: color = "wild";  break;
                     }
+
                     System.out.println(color + " " + cardIndex);
+                    
                 }
             }
         }

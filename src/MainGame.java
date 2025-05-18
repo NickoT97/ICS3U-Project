@@ -15,6 +15,7 @@ public class MainGame{
             System.out.println("Your cards are: ");
             
             Deck.cards(); // call the cards method in the Deck class, and draw 7 cards
+
         }
 
         else if (response.equals("no")) {
