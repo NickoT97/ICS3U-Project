@@ -10,20 +10,10 @@ public class Deck{
     
     public static void cards() {
 
-        //declaring the clearing method
-        Clearing clearer = new Clearing();
-       
-        //declaring player 1s hand display method
-        PlayerOneHand hand1 = new PlayerOneHand();
-
-        //declaring player 2s hand display method
-        PlayerTwoHand hand2 = new PlayerTwoHand();
-
-
-
         // SETTING UP THE DECK
+        String x;
+        int y;
 
-        
         card[0] = new int[25]; // Red
         
         for (int i = 0; i < 25; i++){
@@ -58,11 +48,14 @@ public class Deck{
         String colour = null;
         
         //card dealing for player 1
+        
         int i = 0;
+
+        System.out.println("Player 1's Hand:");
+        
         for(i = 0; i < 7; i++){
             
             index1 = (int)(Math.random() * 4); // The first index is the color of the card (red, blue, green, or wild)
-            System.out.println(index1);
 
             if (index1 == 3){ // If the card is wild (index1 == 3), the randomizer will draw from a pile of 8 cards
                 index2 = (int)(Math.random() * 8); // The wild card has a pile of 8 cards
@@ -71,28 +64,36 @@ public class Deck{
                 index2 = (int)(Math.random() * 25); // The second index is the number of the card (0-25)
             }
 
-            if(card[index1][index2] == sp){
+            if(card[index1][index2] == sp){ // If the card is in the spare pile (ready for dealing)
 
-                if(index1 == 0){
-                    colour = "red";
+                String colourdefinition;
+
+                switch (index1){ // Give each number a designated colour
+                    case 0:  colourdefinition = "red";   break;
+                    case 1:  colourdefinition = "blue";  break;
+                    case 2:  colourdefinition = "green"; break;
+                    default: colourdefinition = "wild";  break;
                 }
 
-                if(index1 == 1){
-                   colour = "blue";
-                }
-
-                if(index1 == 2){
-                    colour = "green";
-                }
-
-                if(index1 == 3){
-                    colour = "wild";
+                if(index2 % 2 == 0){ // If remainder is 0 (even), it is succeeded by "b"
+                    y = index1 / 2;
+                    x = (y + "b");
                 }
                 
+                else if (index2 == 0){ // If the number is 0, it's just labeled as 0
+                    x = "0";
+                }
+
+                else{ // If remainder is not 0 (odd), it is succeeded by "a"
+                    y = (index2 + 1) / 2;
+                    x = (y + "a");
+                }
                
                 card[index1][index2] = p1; // Give the card a value of one, which means it is in player one's hand now.
-                System.out.println(colour + ' ' + index2);
+                
+                System.out.println(colourdefinition + ' ' + x);
             }
+
             else{
                 i--;
             }
@@ -100,20 +101,19 @@ public class Deck{
 
 
 
-
         //clear console to rotate to player 2
-        clearer.clearing();
-    
-
+        Clearing.clearing();
+        
 
 
 
         // GIVING PLAYER 2 CARDS
 
+        System.out.println("Player 2's Hand:");
+
         for(i = 0; i < 7; i++){
             
             index1 = (int)(Math.random() * 4); // The first index is the color of the card (red, blue, green, or wild)
-            System.out.println(index1);
 
             if (index1 == 3){ // If the card is wild (index1 == 3), the randomizer will draw from a pile of 8 cards
                 index2 = (int)(Math.random() * 8); // The wild card has a pile of 8 cards
@@ -122,51 +122,43 @@ public class Deck{
                 index2 = (int)(Math.random() * 25); // The second index is the number of the card (0-25)
             }
 
-            if(card[index1][index2] == sp){
+            //written before I knew what switch cases were, if it ain't broke don't fix it.
+            if(card[index1][index2] == sp){ // If the card is in the spare pile (ready for dealing)
 
-                if(index1 == 0){
-                    colour = "red";
+                String colourdefinition;
+
+                switch (index1){ // Give each number a designated colour
+                    case 0:  colourdefinition = "red";   break;
+                    case 1:  colourdefinition = "blue";  break;
+                    case 2:  colourdefinition = "green"; break;
+                    default: colourdefinition = "wild";  break;
                 }
 
-                if(index1 == 1){
-                   colour = "blue";
-                }
-
-                if(index1 == 2){
-                    colour = "green";
-                }
-
-                if(index1 == 3){
-                    colour = "wild";
+                if(index2 % 2 == 0){ // If remainder is 0 (even), it is succeeded by "b"
+                    y = index1 / 2;
+                    x = (y + "b");
                 }
                 
+                else if (index2 == 0){ // If the number is 0, it's just labeled as 0
+                    x = "0";
+                }
+
+                else{ // If remainder is not 0 (odd), it is succeeded by "a"
+                    y = (index2 + 1) / 2;
+                    x = (y + "a");
+                }
                
-                card[index1][index2] = p2; // Give the card a value of one, which means it is in player one's hand now.
-                System.out.println(colour + ' ' + index2);
+                card[index1][index2] = p1; // Give the card a value of one, which means it is in player one's hand now.
+                System.out.println(colourdefinition + ' ' + x);
             }
+
             else{
                 i--;
             }
         }
-
-
-
-
-
-        // using the clear tool.
-        clearer.clearing();
-
-
-        // 
-
-        hand1.P1hand(card);
-
-        clearer.clearing();
-
-        hand2.P2hand(card);
-
-        clearer.clearing();
-        
-
-        }
+    
+        //clear console
+        Clearing.clearing();
+    
+    }
 }

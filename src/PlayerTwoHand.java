@@ -1,11 +1,13 @@
 // Player 2 hand show method.
 
 class PlayerTwoHand{
-    public void P2hand(int[][] card){
+    public static void P2hand(int[][] card){
         
+        System.out.println("Player 2's hand: ");
+
         for (int colorIndex = 0; colorIndex < card.length; colorIndex++){
             for (int cardIndex = 0; cardIndex < card[colorIndex].length; cardIndex++){
-                if (card[colorIndex][cardIndex] == 2){
+                if (Deck.card[colorIndex][cardIndex] == 2){
                     String color;
                     switch (colorIndex){
                         case 0:  color = "red";   break;
@@ -14,13 +16,28 @@ class PlayerTwoHand{
                         default: color = "wild";  break;
                     }
 
-                    System.out.println(color + " " + cardIndex);
+                    String colour; // String to store the color of the card
+                    String x = null;
+                    int y = 0;
+
+                    if(cardIndex % 2 == 0){
+                        y = cardIndex / 2;
+                        x = (y + "b");
+                    }
+                    else{
+                        y = (cardIndex + 1) / 2;
+                        x = (y + "a");
+                    }
                     
+                    System.out.println(color + " " + x);
+
                 }
             }
         }
         
-        System.out.println();
+        for (int i = 0; i < 3; i++) { // Spacing
+            System.out.println();
+        }
         
     }
 }

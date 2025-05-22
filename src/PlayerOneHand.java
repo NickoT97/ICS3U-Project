@@ -1,11 +1,13 @@
 // Player 1 hand show method.
 
 class PlayerOneHand{
-    public void P1hand(int[][] card){
+    public static void P1hand(int[][] card){
     
+        System.out.println("Player 1's hand: ");
+
         for (int colorIndex = 0; colorIndex < card.length; colorIndex++){
             for (int cardIndex = 0; cardIndex < card[colorIndex].length; cardIndex++){
-                if (card[colorIndex][cardIndex] == 1){
+                if (Deck.card[colorIndex][cardIndex] == 1){
                     String color;
                     switch (colorIndex){
                         case 0:  color = "red";   break;
@@ -13,14 +15,29 @@ class PlayerOneHand{
                         case 2:  color = "green"; break;
                         default: color = "wild";  break;
                     }
-                    
-                    System.out.println(color + " " + cardIndex);
+
+                    String colour; // String to store the color of the card
+                    String x = null;
+                    int y = 0;
+
+                    if(cardIndex % 2 == 0){
+                        y = cardIndex / 2;
+                        x = (y + "b");
+                    }
+                    else{
+                        y = (cardIndex + 1) / 2;
+                        x = (y + "a");
+                    }
+                        
+                    System.out.println(color + " " + x);
 
                 }
             }
         }
         
-        System.out.println();
+        for (int i = 0; i < 3; i++) { // Spacing
+            System.out.println();
+        }
         
     }
 }
