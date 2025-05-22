@@ -6,13 +6,14 @@ public class Player1Turn {
         // Player 1 turn method
         // Will be called when its Player 1's turn to play
 
+        int topcard = TopCard.topcard; // Top card location in deck
         int tcolour = TopCard.topcolour; // The top colour of the pile
         int tcard = TopCard.topcard; // The top number of the pile
 
         for (int colorIndex = 0; colorIndex < card.length; colorIndex++){
             for (int cardIndex = 0; cardIndex < card[colorIndex].length; cardIndex++){
                 if (card[colorIndex][cardIndex] == 1){ // Check if card is in P1s hand
-                    
+
                     String color;
 
                     switch (colorIndex){
@@ -101,7 +102,7 @@ public class Player1Turn {
 
         card[tcolour][tcard] = 4; // Move the top card to the used pile
 
-        card[P1C][P1number] = 3; // Set the card to 3 (remove the card from P1's hand and move to top)
+        topcard = Deck.card[P1C][P1number] = 3; // Set the card to 3 (remove the card from P1's hand and move to top)
 
         tcolour = P1C;
         tcard = P1number;

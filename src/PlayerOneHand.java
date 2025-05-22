@@ -7,7 +7,8 @@ class PlayerOneHand{
 
         for (int colorIndex = 0; colorIndex < card.length; colorIndex++){
             for (int cardIndex = 0; cardIndex < card[colorIndex].length; cardIndex++){
-                if (Deck.card[colorIndex][cardIndex] == 1){
+                if (Deck.card[colorIndex][cardIndex] == 1){ // Check if card is in P1s hand
+                    
                     String color;
                     switch (colorIndex){
                         case 0:  color = "red";   break;
@@ -16,7 +17,6 @@ class PlayerOneHand{
                         default: color = "wild";  break;
                     }
 
-                    String colour; // String to store the color of the card
                     String x = null;
                     int y = 0;
 
