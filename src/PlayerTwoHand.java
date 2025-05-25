@@ -7,7 +7,7 @@ class PlayerTwoHand{
 
         for (int colorIndex = 0; colorIndex < card.length; colorIndex++){
             for (int cardIndex = 0; cardIndex < card[colorIndex].length; cardIndex++){
-                if (Deck.card[colorIndex][cardIndex] == 2){
+                if (Deck.card[colorIndex][cardIndex] == Deck.p2){
                     String color;
                     switch (colorIndex){
                         case 0:  color = "red";   break;
@@ -24,6 +24,11 @@ class PlayerTwoHand{
                         y = cardIndex / 2;
                         x = (y + "b");
                     }
+
+                    else if(cardIndex == 0){
+                        x = "0";
+                    }
+
                     else{
                         y = (cardIndex + 1) / 2;
                         x = (y + "a");

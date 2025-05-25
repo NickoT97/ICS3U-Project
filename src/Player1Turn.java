@@ -6,13 +6,13 @@ public class Player1Turn {
         // Player 1 turn method
         // Will be called when its Player 1's turn to play
 
-        int topcard = TopCard.topcard; // Top card location in deck
+        int tc = TopCard.CardTop; // Top card location in deck
         int tcolour = TopCard.topcolour; // The top colour of the pile
         int tcard = TopCard.topcard; // The top number of the pile
 
         for (int colorIndex = 0; colorIndex < card.length; colorIndex++){
             for (int cardIndex = 0; cardIndex < card[colorIndex].length; cardIndex++){
-                if (card[colorIndex][cardIndex] == 1){ // Check if card is in P1s hand
+                if (card[colorIndex][cardIndex] == Deck.p1){ // Check if card is in P1s hand
 
                     String color;
 
@@ -34,6 +34,11 @@ public class Player1Turn {
                             y = cardIndex / 2;
                             x = (y + "b");
                         }
+
+                        else if(cardIndex == 0){ // If the card is odd, it is an "a" card
+                            x = "0";
+                        }
+
                         else{ // If the card is odd, it is an "a" card
                             y = (cardIndex + 1)/2;
                             x = (y + "a");
@@ -60,6 +65,11 @@ public class Player1Turn {
             y = tcard / 2;
             x = (y + "b");
         }
+        
+        else if (tcard == 0){
+            x = "0";
+        }
+
         else{
             y = (tcard + 1)/2;
             x = (y + "a");
@@ -76,7 +86,10 @@ public class Player1Turn {
         System.out.println("The top card is: " + colour + " " + x); // Show the top card of the pile
         System.out.println("Which card do you want to play? (enter the color and number)"); // ask the user which card they want to play
         
-        // Scan the input for the User's Turn
+
+
+        // USER PLAYS A CARD
+
         String P1response = scan.nextLine();
         
         String[] P1Play = P1response.split(" "); // Split the input into color and number from the space
@@ -102,7 +115,7 @@ public class Player1Turn {
 
         card[tcolour][tcard] = 4; // Move the top card to the used pile
 
-        topcard = Deck.card[P1C][P1number] = 3; // Set the card to 3 (remove the card from P1's hand and move to top)
+        tc = Deck.card[P1C][P1number] = Deck.top; // Set the card to 3 (remove the card from P1's hand and move to top)
 
         tcolour = P1C;
         tcard = P1number;
@@ -119,6 +132,10 @@ public class Player1Turn {
         System.out.println("Your turn is over!"); // Show that the turn is over
         System.out.println("Now it's Player 2's turn!"); // Show that it's Player 2's turn
 
+        // Change values of public variables
+        TopCard.CardTop = tc;
+        TopCard.topcolour = tcolour; 
+        TopCard.topcard = tcard; 
 
     }
 }

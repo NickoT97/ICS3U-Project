@@ -7,7 +7,7 @@ class PlayerOneHand{
 
         for (int colorIndex = 0; colorIndex < card.length; colorIndex++){
             for (int cardIndex = 0; cardIndex < card[colorIndex].length; cardIndex++){
-                if (Deck.card[colorIndex][cardIndex] == 1){ // Check if card is in P1s hand
+                if (Deck.card[colorIndex][cardIndex] == Deck.p1){ // Check if card is in P1s hand
                     
                     String color;
                     switch (colorIndex){
@@ -24,6 +24,11 @@ class PlayerOneHand{
                         y = cardIndex / 2;
                         x = (y + "b");
                     }
+
+                    else if(cardIndex == 0){
+                        x = "0";
+                    }
+
                     else{
                         y = (cardIndex + 1) / 2;
                         x = (y + "a");

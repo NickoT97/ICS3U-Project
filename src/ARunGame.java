@@ -1,3 +1,8 @@
+// Coders: Nicko Tsagogeorgas, Jamie Usmar
+// Date of Completion: dd/mm/yyyy
+// Course Code: ICS3U
+// Teacher: Mr. Nucci
+
 import java.util.Scanner;
 
 public class ARunGame{

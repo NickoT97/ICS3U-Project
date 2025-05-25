@@ -4,6 +4,7 @@ public class TopCard {
 
     public static int topcolour; // The top colour of the pile
     public static int topcard; // The top number of the pile
+    public static int CardTop; // The top number of the pile
 
     public static void TopCard(int[][] card) {
             
@@ -19,9 +20,11 @@ public class TopCard {
 
         // If the card that has been randomly drawn is a value in the spare pile, it will turn into the top card
         // This will take place after the players get their cards
-        if(Deck.card[topcolour][topcard] == 5){ 
+        if(Deck.card[topcolour][topcard] == Deck.sp){ 
 
             String colour;
+            String x;
+            int y;
 
             switch (topcolour){
                 case 0:  colour = "red";   break;
@@ -30,9 +33,23 @@ public class TopCard {
                 default: colour = "wild";  break;
             }
 
-            topcard = Deck.card[topcolour][topcard]; // The top card of the pile
+            if(topcard % 2 == 0){ // If remainder is 0 (even), it is succeeded by "b"
+                y = topcard / 2;
+                x = (y + "b");
+            }
+                
+            else if (topcard == 0){ // If the number is 0, it's just labeled as 0
+                x = "0";
+            }
 
-            System.out.println("The top card is: " + colour + " " + topcard);
+            else{ // If remainder is not 0 (odd), it is succeeded by "a"
+                y = (topcard + 1) / 2;
+                x = (y + "a");
+            }
+
+            CardTop = Deck.card[topcolour][topcard] = Deck.top; // The top card of the pile
+
+            System.out.println("The top card is: " + colour + " " + x);
             
         }
     }

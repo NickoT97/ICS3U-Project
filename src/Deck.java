@@ -76,7 +76,7 @@ public class Deck{
                 }
 
                 if(index2 % 2 == 0){ // If remainder is 0 (even), it is succeeded by "b"
-                    y = index1 / 2;
+                    y = index2 / 2;
                     x = (y + "b");
                 }
                 
@@ -108,6 +108,7 @@ public class Deck{
 
 
         // GIVING PLAYER 2 CARDS
+        //card dealing for player 2
 
         System.out.println("Player 2's Hand:");
 
@@ -122,7 +123,6 @@ public class Deck{
                 index2 = (int)(Math.random() * 25); // The second index is the number of the card (0-25)
             }
 
-            //written before I knew what switch cases were, if it ain't broke don't fix it.
             if(card[index1][index2] == sp){ // If the card is in the spare pile (ready for dealing)
 
                 String colourdefinition;
@@ -148,7 +148,7 @@ public class Deck{
                     x = (y + "a");
                 }
                
-                card[index1][index2] = p1; // Give the card a value of one, which means it is in player one's hand now.
+                card[index1][index2] = p2; // Give the card a value of one, which means it is in player two's hand now.
                 System.out.println(colourdefinition + ' ' + x);
             }
 

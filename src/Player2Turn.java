@@ -6,12 +6,13 @@ public class Player2Turn {
         // Player 2 turn method
         // Will be called when its Player 2's turn to play
 
+        int tc = TopCard.CardTop; // Top card location in deck
         int tcolour = TopCard.topcolour; // The top colour of the pile
         int tcard = TopCard.topcard; // The top number of the pile
 
         for (int colorIndex = 0; colorIndex < card.length; colorIndex++){
             for (int cardIndex = 0; cardIndex < card[colorIndex].length; cardIndex++){
-                if (card[colorIndex][cardIndex] == 2){ // Check if card is in P2s hand
+                if (card[colorIndex][cardIndex] == Deck.p2){ // Check if card is in P2s hand
                     
                     String color;
 
@@ -33,6 +34,11 @@ public class Player2Turn {
                             y = cardIndex / 2;
                             x = (y + "b");
                         }
+
+                        else if(cardIndex == 0){
+                            x = "0";
+                        }
+
                         else{ // If the card is odd, it is an "a" card
                             y = (cardIndex + 1)/2;
                             x = (y + "a");
@@ -101,12 +107,11 @@ public class Player2Turn {
 
         card[tcolour][tcard] = 4; // Move the top card to the used pile
 
-        card[P2C][P2number] = 3; // Set the card to 3 (remove the card from P1's hand and move to top)
+        tc = card[P2C][P2number] = 3; // Set the card to 3 (remove the card from P1's hand and move to top)
 
+        
         tcolour = P2C;
         tcard = P2number;
-
-
 
 
         // END OF TURN
@@ -117,6 +122,11 @@ public class Player2Turn {
         PlayerOneHand.P1hand(Deck.card); // Call the P2 hand method to show the new hand
         System.out.println("Your turn is over!"); // Show that the turn is over
         System.out.println("Now it's Player 1's turn!"); // Show that it's Player 1's turn
+
+        // Change values of public variables
+        TopCard.CardTop = tc;
+        TopCard.topcolour = tcolour; 
+        TopCard.topcard = tcard; 
 
     }
 }
