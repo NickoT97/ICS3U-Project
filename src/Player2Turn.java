@@ -6,12 +6,15 @@ public class Player2Turn {
         // Player 2 turn method
         // Will be called when its Player 2's turn to play
 
-        int tc = TopCard.CardTop; // Top card location in deck
         int tcolour = TopCard.topcolour; // The top colour of the pile
         int tcard = TopCard.topcard; // The top number of the pile
+        int colorIndex;
+        int cardIndex;
+        int oldTcolour = tcolour; //save value of old top card colour
+        int oldTnumber = tcard; //save value of old top card number
 
-        for (int colorIndex = 0; colorIndex < card.length; colorIndex++){
-            for (int cardIndex = 0; cardIndex < card[colorIndex].length; cardIndex++){
+        for (colorIndex = 0; colorIndex < card.length; colorIndex++){
+            for (cardIndex = 0; cardIndex < card[colorIndex].length; cardIndex++){
                 if (card[colorIndex][cardIndex] == Deck.p2){ // Check if card is in P2s hand
                     
                     String color;
@@ -29,7 +32,7 @@ public class Player2Turn {
                         String x;
                         int y;
 
-                        if(cardIndex % 2 == 0){ // Check if the card is even
+                        if(cardIndex % 2 == 0 && cardIndex != 0){ // Check if the card is even
                             // If the card is even, it is a "b" card
                             y = cardIndex / 2;
                             x = (y + "b");
@@ -61,10 +64,15 @@ public class Player2Turn {
         String x;
         int y;
         
-        if(tcard % 2 == 0){
+        if(tcard % 2 == 0 && tcard != 0){
             y = tcard / 2;
             x = (y + "b");
         }
+        
+        else if (tcard == 0){
+            x = "0";
+        }
+
         else{
             y = (tcard + 1)/2;
             x = (y + "a");
@@ -78,55 +86,241 @@ public class Player2Turn {
         }
                 
 
-        System.out.println("The top card is: " + colour + " " + x); // Show the top card of the pile
-        System.out.println("Which card do you want to play? (enter the color and number)"); // ask the user which card they want to play
-        
-        // Scan the input for the User's Turn
-        String P2response = scan.nextLine();
-        
-        String[] P2Play = P2response.split(" "); // Split the input into color and number from the space
+        if (TopCard.topcard == TopCard.wildNumber){
+            String wildColourName = "";
 
-        String P2color = P2Play[0]; // Get the color from P2 turn
+            switch (TopCard.topcolour){
+            case 0:  wildColourName = "red";   break;
+            case 1:  wildColourName = "blue";  break;
+            case 2:  wildColourName = "green"; break;
+            }
+            System.out.println("The colour of the wild card is: " + wildColourName);
 
-        int P2C = 0; // Integer to store the colour of the card
-
-        if (P2color.equals("red")){ // Check if the color is red
-            P2C = 0; // Set the color to red
         }
-        else if (P2color.equals("blue")){ // Check if the color is blue
-            P2C = 1; // Set the color to blue
-        }
-        else if (P2color.equals("green")){ // Check if the color is green
-            P2C = 2; // Set the color to green
-        }
-        else if (P2color.equals("wild")){ // Check if the color is wild
-            P2C = 3; // Set the color to wild
+        else {
+            System.out.println("The top card is: " + colour + " " + x); // Show the top card of the pile
         }
 
-        int P2number = Integer.parseInt(P2Play[1]); // Get the number from P2 turn
-
-        card[tcolour][tcard] = 4; // Move the top card to the used pile
-
-        tc = card[P2C][P2number] = 3; // Set the card to 3 (remove the card from P1's hand and move to top)
 
         
-        tcolour = P2C;
-        tcard = P2number;
+        //ask user if they would like to pickup a card
+        String pickupResponse;
+
+        do {
+            while (true){
+                System.out.println("Would you like to pick up a card? (yes/no) ");
+                pickupResponse = scan.nextLine();
+                
+                if (pickupResponse.equals("yes")){ //if yes, user picks up a card and gets the question asked again
+                    Deck.pickup(1);
+                    break;
+                }
+
+                else if (pickupResponse.equals("no")) { //if no, user doesn't pick up a card
+                    break;
+                }
+
+                else { //otherwise, the user will be prompted to give a valid answer
+                    System.out.println("Not a valid response. Try again.");
+                    continue;
+                }
+            }
+        } while(pickupResponse.equals("yes"));
+
+
+
+
+        System.out.println("Which card do you want to play? (ex. red 1 a)"); // ask the user which card they want to play
+        
+
+
+
+       // Declaring variables outside of the while loop
+        String P2response;
+        String P2color;
+        String P2Letter;
+        int P2C;
+        int P2number;
+        int cardNumIndex;
+
+
+        // USER PLAYS A CARD
+        // check if user is allowed to play the card based on the colour, number, letter, if it is in the player's hand, and if it matches requirements of top card
+        while (true){
+            P2response = scan.nextLine();
+            
+            String[] P2Play = P2response.split(" "); // Split the input into color, number, & letter from the spaces
+
+            P2color = P2Play[0]; // Get the color from 2 turn
+
+
+            // CHECK FORMATING
+
+            if (P2Play.length < 2 || P2Play.length > 3){
+                System.out.println("Improper format. Try again");
+                continue;
+            }
+
+
+            // COLOUR CHECK
+            
+            P2C = 0; // Integer to store the colour of the card
+
+            if (P2color.equals("red")){ // Check if the color is red
+                P2C = 0; // Set the color to red
+            }
+            else if (P2color.equals("blue")){ // Check if the color is blue
+                P2C = 1; // Set the color to blue
+            }
+            else if (P2color.equals("green")){ // Check if the color is green
+                P2C = 2; // Set the color to green
+            }
+            else if (P2color.equals("wild")){ // Check if the color is wild
+                P2C = 3; // Set the color to wild
+            }
+            else{ // if it is an invalid colour, the while loop restarts and requires the user to pick a correct colour
+                System.out.println("Invalid colour, try again.");
+                continue;
+            }
+
+
+            // NUMBER CHECK
+
+            try { //tries running this line
+                P2number = Integer.parseInt(P2Play[1]); // Get the number from P2 turn
+            }
+
+            catch (NumberFormatException e){ //if there was an error in try, this would catch the exception and prevent the program from crashing
+                System.out.println("Not a valid number. Try again.");
+                continue;
+            }
+            
+
+
+            // LETTER CHECK
+
+            P2Letter = "";
+            cardNumIndex = 0; // Integer to store the index of the card in the array
+
+            if (P2Play.length == 3){ //if the card has a letter in it, aka, not a 0 card
+                P2Letter = P2Play[2]; // Get the letter from P2 turn
+
+                // Reverse the naming of the card since the array is from 0-22
+                // Player names a card from 0-11, but the array is from 0-22
+                // Reverse the letter naming to get the correct index
+
+
+                if(P2Letter.equals("b")){
+                    cardNumIndex = P2number * 2;
+                }
+                
+                else if (P2Letter.equals("a")){
+                    cardNumIndex = (P2number * 2) - 1; 
+                }
+                else{
+                    System.out.println("Invalid letter, try again.");
+                    continue;
+                }
+
+            }
+
+            else if(P2Play.length == 2){ //if the card number is 0
+                cardNumIndex = P2number;
+            }
+
+            else{
+                System.out.println("Invalid input. Please enter a valid card.");
+                continue; // Exit the method if the input is invalid
+            }
+
+
+            // CHECK IF PLAYER HAS THE CARD
+
+            if (card[P2C][cardNumIndex] != Deck.p2){
+                System.out.println("You don't have that card. Try again.");
+                continue; // card is not Player 2's hand
+            }
+
+
+            // VERIFY IF CARD MATCHES CRITERIA OF TOP CARD
+            
+            if (tcolour == P2C || tcard == cardNumIndex || colorIndex == 3 || P2C == 3){
+                if (P2C == 3){ //if the card played is a wild card
+                    String colourChange;
+                    int wildCardColour;
+                    
+                    while (true){
+                        System.out.println("What colour would you like? (red/blue/green)");
+                        colourChange = scan.nextLine();
+
+
+                        switch (colourChange){
+                            case "red": wildCardColour = 0;    break;
+                            case "blue": wildCardColour = 1;   break;
+                            case "green": wildCardColour = 2;  break; 
+                            default: System.out.println("Not a valid colour. Try again"); continue;
+                        }
+                        break; //exit loop if colour is chosen
+                    }
+                    tcolour = wildCardColour; //make top card the wild card colour chosen
+                    break;
+                }
+                
+                else { //if the card played is anything but a wild card
+                    break; // a valid card has been played
+                }
+            }
+
+            else{
+                System.out.println("You can't play that card based on the top card.");
+                continue;
+            }
+        }
+
+
+
+        card[tcolour][tcard] = Deck.use; // Move the top card to the used pile
+
+        card[P2C][cardNumIndex] = Deck.top; // Set the card to 3 (remove the card from 2's hand and move to top)
+
+        String tcolourName = ""; //name for the top colour in the instance that the user plays a wild card
+
+        switch (tcolour){
+            case 0: tcolourName = "red";    break;
+            case 1: tcolourName = "blue";   break;
+            case 2: tcolourName = "green";  break; 
+        }
 
 
         // END OF TURN
 
-        System.out.println("You played: " + P2color + " " + P2number); // Show the card that was played
-        System.out.println("The top card is now: " + P2color + " " + P2number); // Show the new top card of the pile
+        System.out.println("You played: " + P2color + " " + P2number + P2Letter + "\n\n"); // Show the card that was played
+        
+        if (P2C != 3){
+            System.out.println("The top card is now: " + P2color + " " + P2number + P2Letter); // Show the new top card of the pile
+        }
+
+        else if (P2C == 3){
+            System.out.println("The top colour is now: " + tcolourName); // Show the new top colour of the pile
+        }
+
         System.out.println("Your new hand is: "); // Show the new hand of P2
-        PlayerOneHand.P1hand(Deck.card); // Call the P2 hand method to show the new hand
+
+        PlayerTwoHand.P2hand(Deck.card); // Call the P2 hand method to show the new hand
+
         System.out.println("Your turn is over!"); // Show that the turn is over
         System.out.println("Now it's Player 1's turn!"); // Show that it's Player 1's turn
 
         // Change values of public variables
-        TopCard.CardTop = tc;
-        TopCard.topcolour = tcolour; 
-        TopCard.topcard = tcard; 
+        if (P2C != 3){
+            TopCard.topcolour = P2C; 
+            TopCard.topcard = cardNumIndex; 
+        }
+
+        else if (P2C == 3){
+            TopCard.topcolour = tcolour; 
+            TopCard.topcard = TopCard.wildNumber; 
+        }
 
     }
 }

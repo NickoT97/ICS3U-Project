@@ -14,21 +14,21 @@ public class Deck{
         String x;
         int y;
 
-        card[0] = new int[25]; // Red
+        card[0] = new int[23]; // Red
         
-        for (int i = 0; i < 25; i++){
+        for (int i = 0; i < 23; i++){
             card[0][i] = sp; // Give each card a value of 5, which means it is in the deck
             }
 
-        card[1] = new int[25]; // Blue
+        card[1] = new int[23]; // Blue
         
-        for (int i = 0; i < 25; i++){
+        for (int i = 0; i < 23; i++){
             card[1][i] = sp; // Give each card a value of 5, which means it is in the deck
         }
 
-        card[2] = new int[25]; // Green
+        card[2] = new int[23]; // Green
         
-        for (int i = 0; i < 25; i++){
+        for (int i = 0; i < 23; i++){
             card[2][i] = sp; // Give each card a value of 5, which means it is in the deck
         }
 
@@ -61,7 +61,7 @@ public class Deck{
                 index2 = (int)(Math.random() * 8); // The wild card has a pile of 8 cards
             }
             else{
-                index2 = (int)(Math.random() * 25); // The second index is the number of the card (0-25)
+                index2 = (int)(Math.random() * 23); // The second index is the number index of the card (0-22)
             }
 
             if(card[index1][index2] == sp){ // If the card is in the spare pile (ready for dealing)
@@ -75,7 +75,7 @@ public class Deck{
                     default: colourdefinition = "wild";  break;
                 }
 
-                if(index2 % 2 == 0){ // If remainder is 0 (even), it is succeeded by "b"
+                if(index2 % 2 == 0 && index2 != 0){ // If remainder is 0 (even), it is succeeded by "b"
                     y = index2 / 2;
                     x = (y + "b");
                 }
@@ -120,7 +120,7 @@ public class Deck{
                 index2 = (int)(Math.random() * 8); // The wild card has a pile of 8 cards
             }
             else{
-                index2 = (int)(Math.random() * 25); // The second index is the number of the card (0-25)
+                index2 = (int)(Math.random() * 23); // The second index is the number index of the card (0-22)
             }
 
             if(card[index1][index2] == sp){ // If the card is in the spare pile (ready for dealing)
@@ -134,8 +134,8 @@ public class Deck{
                     default: colourdefinition = "wild";  break;
                 }
 
-                if(index2 % 2 == 0){ // If remainder is 0 (even), it is succeeded by "b"
-                    y = index1 / 2;
+                if(index2 % 2 == 0 && index2 != 0){ // If remainder is 0 (even), it is succeeded by "b"
+                    y = index2 / 2;
                     x = (y + "b");
                 }
                 
@@ -160,5 +160,52 @@ public class Deck{
         //clear console
         Clearing.clearing();
     
+    }
+
+    //method used to pickup a random card from the spare pile
+    //user decides whether they want to pickup or not at the start of their turn
+    public static void pickup(int a) {
+        int index1;
+        int index2;
+        String x;
+        int y;
+        String colour;
+
+        index1 = (int)(Math.random() * 4); // The first index is the color of the card (red, blue, green, or wild)
+            
+        if (index1 == 3){ // If the card is wild (index1 == 3), the randomizer will draw from a pile of 8 cards                
+            index2 = (int)(Math.random() * 8); // The wild card has a pile of 8 cards
+        }
+        else{
+            index2 = (int)(Math.random() * 23); // The second index is the number index of the card (0-22)
+        }
+
+        if(card[index1][index2] == sp){ // If the card is in the spare pile (ready for dealing)
+            card[index1][index2] = a; //the card is placed into the designated player's hand (a)
+        }
+
+        switch (index1){ // Give each number a designated colour
+            case 0:  colour = "red";   break;
+            case 1:  colour = "blue";  break;
+            case 2:  colour = "green"; break;
+            default: colour = "wild";  break;
+        }
+
+        if(index2 % 2 == 0 && index2 != 0){ // If remainder is 0 (even), it is succeeded by "b"
+            y = index2 / 2;
+            x = (y + "b");
+        }
+                
+        else if (index2 == 0){ // If the number is 0, it's just labeled as 0
+            x = "0";
+        }
+
+        else{ // If remainder is not 0 (odd), it is succeeded by "a"
+            y = (index2 + 1) / 2;
+            x = (y + "a");
+        }
+
+        System.out.println("You picked up " + colour + " " + x);
+
     }
 }

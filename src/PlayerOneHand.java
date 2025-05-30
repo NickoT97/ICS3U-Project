@@ -20,7 +20,7 @@ class PlayerOneHand{
                     String x = null;
                     int y = 0;
 
-                    if(cardIndex % 2 == 0){
+                    if(cardIndex % 2 == 0 && cardIndex != 0){
                         y = cardIndex / 2;
                         x = (y + "b");
                     }

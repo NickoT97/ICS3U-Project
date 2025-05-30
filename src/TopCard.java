@@ -4,7 +4,7 @@ public class TopCard {
 
     public static int topcolour; // The top colour of the pile
     public static int topcard; // The top number of the pile
-    public static int CardTop; // The top number of the pile
+    public static int wildNumber = 0; //wild is just 0 as it doesn't have a value
 
     public static void TopCard(int[][] card) {
             
@@ -33,7 +33,7 @@ public class TopCard {
                 default: colour = "wild";  break;
             }
 
-            if(topcard % 2 == 0){ // If remainder is 0 (even), it is succeeded by "b"
+            if(topcard % 2 == 0 && topcard != 0){ // If remainder is 0 (even), it is succeeded by "b"
                 y = topcard / 2;
                 x = (y + "b");
             }
@@ -47,7 +47,7 @@ public class TopCard {
                 x = (y + "a");
             }
 
-            CardTop = Deck.card[topcolour][topcard] = Deck.top; // The top card of the pile
+            Deck.card[topcolour][topcard] = Deck.top; // The top card of the pile
 
             System.out.println("The top card is: " + colour + " " + x);
             
