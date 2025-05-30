@@ -8,10 +8,11 @@ public class Player2Turn {
 
         int tcolour = TopCard.topcolour; // The top colour of the pile
         int tcard = TopCard.topcard; // The top number of the pile
-        int colorIndex;
-        int cardIndex;
+        int colorIndex = 0;
+        int cardIndex = 0;
         int oldTcolour = tcolour; //save value of old top card colour
         int oldTnumber = tcard; //save value of old top card number
+        boolean hasPlayableCard = false; //used to check if the player has a playable card. used with the pickup() method
 
         for (colorIndex = 0; colorIndex < card.length; colorIndex++){
             for (cardIndex = 0; cardIndex < card[colorIndex].length; cardIndex++){
@@ -49,6 +50,7 @@ public class Player2Turn {
 
 
                         System.out.println("You can play this card: " + color + " " + x);
+                        hasPlayableCard = true;
 
                     }
 
@@ -86,7 +88,7 @@ public class Player2Turn {
         }
                 
 
-        if (TopCard.topcard == TopCard.wildNumber){
+        if (TopCard.wildTop == true){
             String wildColourName = "";
 
             switch (TopCard.topcolour){
@@ -107,12 +109,36 @@ public class Player2Turn {
         String pickupResponse;
 
         do {
+            
+            while (hasPlayableCard == false){ //if the player doesn't have any playable cards, it forces a pickup
+                System.out.println("No playable cards. Automatically picking up a card.");
+                Deck.pickup(2); //pickup card
+
+                //this for loop checks if the player has any playable cards
+                for (colorIndex = 0; colorIndex < card.length; colorIndex++){
+                    for (cardIndex = 0; cardIndex < card[colorIndex].length; cardIndex++){
+                        if (card[colorIndex][cardIndex] == Deck.p2 && (tcolour == colorIndex || tcard == cardIndex || colorIndex == 3)){
+                            //iterate through the array
+                            //if the user has a card that matches the top card's requirements, they have a playable card
+                            hasPlayableCard = true;
+                            break; //exit the inner for loop
+                        }
+                    }
+
+                    if (hasPlayableCard == true){break;} //exit the outer for loop
+                }
+
+
+            }
+            
+            //give user the option if they would like to optionally pick up a card
             while (true){
+
                 System.out.println("Would you like to pick up a card? (yes/no) ");
                 pickupResponse = scan.nextLine();
                 
                 if (pickupResponse.equals("yes")){ //if yes, user picks up a card and gets the question asked again
-                    Deck.pickup(1);
+                    Deck.pickup(2);
                     break;
                 }
 
@@ -124,6 +150,8 @@ public class Player2Turn {
                     System.out.println("Not a valid response. Try again.");
                     continue;
                 }
+
+                
             }
         } while(pickupResponse.equals("yes"));
 
@@ -205,8 +233,8 @@ public class Player2Turn {
             if (P2Play.length == 3){ //if the card has a letter in it, aka, not a 0 card
                 P2Letter = P2Play[2]; // Get the letter from P2 turn
 
-                // Reverse the naming of the card since the array is from 0-22
-                // Player names a card from 0-11, but the array is from 0-22
+                // Reverse the naming of the card since the array is from 0-18
+                // Player names a card from 0-10, but the array is from 0-18
                 // Reverse the letter naming to get the correct index
 
 
@@ -279,7 +307,7 @@ public class Player2Turn {
 
 
 
-        card[tcolour][tcard] = Deck.use; // Move the top card to the used pile
+        card[oldTcolour][oldTnumber] = Deck.use; // Move the top card to the used pile
 
         card[P2C][cardNumIndex] = Deck.top; // Set the card to 3 (remove the card from 2's hand and move to top)
 
@@ -296,31 +324,35 @@ public class Player2Turn {
 
         System.out.println("You played: " + P2color + " " + P2number + P2Letter + "\n\n"); // Show the card that was played
         
-        if (P2C != 3){
-            System.out.println("The top card is now: " + P2color + " " + P2number + P2Letter); // Show the new top card of the pile
+        if (Deck.countCards(2) > 0){ //if the player still has cards in their hand, the following will be printed
+            if (P2C != 3){
+                System.out.println("The top card is now: " + P2color + " " + P2number + P2Letter); // Show the new top card of the pile
+            }
+
+            else if (P2C == 3){
+                System.out.println("The top colour is now: " + tcolourName); // Show the new top colour of the pile
+            }
+
+            PlayerTwoHand.P2hand(Deck.card); // Call the P2 hand method to show the new hand
+
+            // Change values of public variables
+            if (P2C != 3){
+                TopCard.topcolour = P2C; 
+                TopCard.topcard = cardNumIndex; 
+                TopCard.wildTop = false;
+            }
+
+            else if (P2C == 3){
+                TopCard.topcolour = tcolour; 
+                TopCard.wildTop = true;
+                TopCard.topcard = 0;
+            }
         }
 
-        else if (P2C == 3){
-            System.out.println("The top colour is now: " + tcolourName); // Show the new top colour of the pile
-        }
-
-        System.out.println("Your new hand is: "); // Show the new hand of P2
-
-        PlayerTwoHand.P2hand(Deck.card); // Call the P2 hand method to show the new hand
-
+        else{} //if the player has 0 cards, nothing is said
+               //print statements in main method are then printed
+        
         System.out.println("Your turn is over!"); // Show that the turn is over
-        System.out.println("Now it's Player 1's turn!"); // Show that it's Player 1's turn
-
-        // Change values of public variables
-        if (P2C != 3){
-            TopCard.topcolour = P2C; 
-            TopCard.topcard = cardNumIndex; 
-        }
-
-        else if (P2C == 3){
-            TopCard.topcolour = tcolour; 
-            TopCard.topcard = TopCard.wildNumber; 
-        }
 
     }
 }

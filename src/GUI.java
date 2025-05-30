@@ -1,6 +1,9 @@
 import java.awt.*;
 import javax.swing.*;
 
+
+// optional GUI, didn't have time to make it
+
 public class GUI {
     public static void gui() {
 

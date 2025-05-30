@@ -16,7 +16,6 @@ class PlayerTwoHand{
                         default: color = "wild";  break;
                     }
 
-                    String colour; // String to store the color of the card
                     String x = null;
                     int y = 0;
 
